@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="agriculture:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="agriculture-1.0.0-BUILD-SNAPSHOT.war">
+      <element id="artifact" artifact-name="agriculture:war exploded" />
+    </root>
+  </artifact>
+</component>

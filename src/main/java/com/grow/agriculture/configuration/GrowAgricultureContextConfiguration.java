@@ -1,6 +1,11 @@
 package com.grow.agriculture.configuration;
 
+import java.util.Collections;
+import java.util.Properties;
+
 import org.apache.commons.dbcp.BasicDataSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -18,16 +23,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
-import java.util.Collections;
-import java.util.Properties;
-
-@Configuration
 @EnableWebMvc
+@Configuration
+@PropertySource("file:///D:/application.properties")
 @ComponentScan("com.grow.agriculture.controllers")
 @EnableJpaRepositories(basePackages = "com.grow.agriculture.repository")
-@PropertySource("file:///C:/application.properties")
 public class GrowAgricultureContextConfiguration implements WebMvcConfigurer {
-
+	private static final Logger log = LoggerFactory.getLogger(GrowAgricultureContextConfiguration.class);
 
 	@Value("${datasource.driver.class.name}")
 	private String driverClassName;
@@ -80,17 +82,17 @@ public class GrowAgricultureContextConfiguration implements WebMvcConfigurer {
 
 	private BasicDataSource dataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
-		dataSource.setDriverClassName(driverClassName);
-		dataSource.setUrl(url);
-		dataSource.setUsername(username);
-		dataSource.setPassword(password);
+		dataSource.setDriverClassName("oracle.jdbc.driver.OracleDriver");
+		dataSource.setUrl("jdbc:oracle:thin:@localhost:1521:xe");
+		dataSource.setUsername("nikhil");
+		dataSource.setPassword("admin");
 		return dataSource;
 	}
 	
 	@Bean
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         HibernateJpaVendorAdapter hibernateJpa = new HibernateJpaVendorAdapter();
-        hibernateJpa.setDatabasePlatform(databasePlatform);
+        hibernateJpa.setDatabasePlatform("org.hibernate.dialect.Oracle10gDialect");
         hibernateJpa.setShowSql(true);
         hibernateJpa.setGenerateDdl(true);
         hibernateJpa.setDatabase(Database.ORACLE);
@@ -98,17 +100,17 @@ public class GrowAgricultureContextConfiguration implements WebMvcConfigurer {
         emf.setDataSource(dataSource());
         emf.setPackagesToScan("com.grow.agriculture.model");
         emf.setJpaVendorAdapter(hibernateJpa);
-        emf.setJpaPropertyMap(Collections.singletonMap(validationMode, validationModeValue));
+        emf.setJpaPropertyMap(Collections.singletonMap("javax.persistence.validation.mode", "AUTO"));
         emf.setJpaProperties(jpaProperties());
         return emf;
     }
 	
 	private final Properties jpaProperties() {
 		Properties hibernateProperties = new Properties();
-		hibernateProperties.setProperty("hibernate.hbm2ddl.auto", hibernateDDLGenerationStratergy);
-		hibernateProperties.setProperty("hibernate.dialect", hibernateDailect);
-		hibernateProperties.put("hibernate.show_sql", showSQL);
-		hibernateProperties.put("hibernate.format_sql", formatSQL);
+		hibernateProperties.setProperty("hibernate.hbm2ddl.auto", "create-drop");
+		hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.Oracle10gDialect");
+		hibernateProperties.put("hibernate.show_sql", "true");
+		hibernateProperties.put("hibernate.format_sql", "true");
 		return hibernateProperties;
 	}
     
@@ -122,7 +124,7 @@ public class GrowAgricultureContextConfiguration implements WebMvcConfigurer {
 	@Bean
 	public ResourceBundleMessageSource messageSource() {
 		ResourceBundleMessageSource source = new ResourceBundleMessageSource();
-		source.setBasename("file:///C:/messages");
+		source.setBasename("messages");
 		source.setUseCodeAsDefaultMessage(true);
 		return source;
 	}

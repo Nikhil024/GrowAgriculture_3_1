@@ -14,7 +14,7 @@ import com.grow.agriculture.model.User;
 @Controller
 public class RegisterPageComponentController {
 	private static final Logger log = LoggerFactory.getLogger(RegisterPageComponentController.class);
-	private static final String VIEW_NAME = "registerPageCompoenent";
+	private static final String VIEW_NAME = "registerPageComponent";
 	private static final String MODEL_NAME = "user";
 	
 	
@@ -22,7 +22,6 @@ public class RegisterPageComponentController {
 	public ModelAndView register() {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject(MODEL_NAME, new User());
-		
 		mav.setViewName(VIEW_NAME);
 		return mav;
 	}
@@ -30,7 +29,6 @@ public class RegisterPageComponentController {
 	
 	@PostMapping("/register")
 	public ModelAndView registerUser(@ModelAttribute(MODEL_NAME) User user, BindingResult result) {
-		
 		log.info(user.toString());
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(VIEW_NAME);

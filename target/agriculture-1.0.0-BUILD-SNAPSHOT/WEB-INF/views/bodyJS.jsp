@@ -4,47 +4,48 @@
   Date: 10-03-2018
   Time: 19:48
 --%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <script src="<spring:url value="/resources/js/core/jquery.min.js"/>"></script>
 <script src="<spring:url value="/resources/js/core/popper.min.js"/>"></script>
 <script src="<spring:url value="/resources/js/bootstrap-material-design.min.js"/>"></script>
-<!--  Plugin for Date Time Picker and Full Calendar Plugin-->
+<!-- Plugin for Date Time Picker and Full Calendar Plugin-->
 <script src="<spring:url value="/resources/js/plugins/moment.min.js"/>"></script>
-<!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
+<!-- Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
 <script src="<spring:url value="/resources/js/plugins/bootstrap-selectpicker.js"/>"></script>
-<!--	Plugin for Tags, full documentation here: http://xoxco.com/projects/code/tagsinput/  -->
+<!-- Plugin for Tags, full documentation here: http://xoxco.com/projects/code/tagsinput/ -->
 <script src="<spring:url value="/resources/js/plugins/bootstrap-tagsinput.js"/>"></script>
-<!--	Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
+<!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
 <script src="<spring:url value="/resources/js/plugins/jasny-bootstrap.min.js"/>"></script>
-<!--	Plugin for Small Gallery in Product Page -->
+<!-- Plugin for Small Gallery in Product Page -->
 <script src="<spring:url value="/resources/js/plugins/jquery.flexisel.js"/>"></script>
-<!--	Plugin for the Datepicker, full documentation here: https://github.com/Eonasdan/bootstrap-datetimepicker -->
+<!-- Plugin for the Datepicker, full documentation here: https://github.com/Eonasdan/bootstrap-datetimepicker -->
 <script src="<spring:url value="/resources/js/plugins/bootstrap-datetimepicker.min.js"/>"></script>
-<!--	Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+<!-- Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
 <script src="<spring:url value="/resources/js/plugins/nouislider.min.js"/>"></script>
 <!-- Material Kit Core initialisations of plugins and Bootstrap Material Design Library -->
 <script src="<spring:url value="/resources/js/material-kit.min.js?v=2.0.0"/>"></script>
 <!-- Fixed Sidebar Nav - js With initialisations For Demo Purpose, Don't Include it in your project -->
 <script src="<spring:url value="/resources/assets-for-demo/js/material-kit-demo.js"/>"></script>
-<!-- Plugins for presentation and navigation  -->
+<!-- Plugins for presentation and navigation -->
 <script src="<spring:url value="/resources/assets-for-demo/js/modernizr.js"/>"></script>
 <script src="<spring:url value="/resources/assets-for-demo/js/vertical-nav.js"/>"></script>
-<!--  Google Maps Plugin    -->
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2Yno10-YTnLjjn_Vtk0V8cdcY5lC4plU"></script>
+<!-- Google Maps Plugin -->
+<script type="text/javascript"
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2Yno10-YTnLjjn_Vtk0V8cdcY5lC4plU"></script>
 <!-- Sharrre libray -->
 <script src="<spring:url value="/resources/assets-for-demo/js/jquery.sharrre.js"/>">
 </script>
 <script>
-    $(document).ready(function() {
-        if($("#termsAndConditions").length > 0){
+    $(document).ready(function () {
+        if ($("#termsAndConditions").length > 0) {
             $("#termsAndConditions").val("true");
-            $(document).on('change', '#termsAndConditionsCheckbox', function() {
-                if($("#termsAndConditionsCheckbox").prop('checked')){
+            $(document).on('change', '#termsAndConditionsCheckbox', function () {
+                if ($("#termsAndConditionsCheckbox").prop('checked')) {
                     $("#termsAndConditions").val("true");
                     $("#toProfile").removeAttr('disabled');
-                }else{
+                } else {
                     $("#termsAndConditions").val("");
-                    $("#toProfile").attr('disabled','disabled');
+                    $("#toProfile").attr('disabled', 'disabled');
                 }
             });
         }
@@ -54,60 +55,60 @@
     var successTickCode = "<span class='form-control-feedback'><i class='material-icons'>done</i></span>";
     var failureCrossCode = "<span class='form-control-feedback'><i class='material-icons'>clear</i></span>";
     var redTect = "<label for='exampleInput3' class='bmd-label-floating'>Error input</label>";
-    $("#lastName").click(function(){
-        if($("#otpValue").val() != null && sessionID != null){
-            if($("#otpValue").val().toString().length > 3){
+    $("#lastName").click(function () {
+        if ($("#otpValue").val() != null && sessionID != null) {
+            if ($("#otpValue").val().toString().length > 3) {
                 otpValue = $("#otpValue").val();
-                if(localStorage.getItem("OtpVerified") != "yes"){
+                if (localStorage.getItem("OtpVerified") != "yes") {
                     count = count + 1;
-                    if(count <= 3){
+                    if (count <= 3) {
                         $.ajax({
-                            type : "POST",
-                            url : "${pageContext.request.contextPath}/checkOtp",
-                            data : "otpValue="+otpValue+"&sessionID="+sessionID,
-                            success : function(response) {
-                                if(response[1] == "OTP Matched"){
+                            type: "POST",
+                            url: "${pageContext.request.contextPath}/checkOtp",
+                            data: "otpValue=" + otpValue + "&sessionID=" + sessionID,
+                            success: function (response) {
+                                if (response[1] == "OTP Matched") {
                                     $('.form-control-feedback').remove();
                                     var htmlCode = $("#otpValue").parent().parent().html();
                                     $("#otpValue").parent().parent().addClass('has-success is-focused');
                                     $("#otpValue").parent().parent().html(htmlCode + successTickCode);
                                     $("#otpValue").val(otpValue);
-                                    $("#otpValue").attr("style","background-color: white;pointer-events: none;");
-                                    localStorage.setItem("OtpVerified","yes");
-                                    localStorage.setItem("OtpValue",otpValue);
+                                    $("#otpValue").attr("style", "background-color: white;pointer-events: none;");
+                                    localStorage.setItem("OtpVerified", "yes");
+                                    localStorage.setItem("OtpValue", otpValue);
                                     $("#otpSessionId").val(sessionID);
                                     $("#otpValue").val(otpValue);
                                     $("#otpRetries").val(count);
-                                }else{
+                                } else {
                                     $('.form-control-feedback').remove();
                                     var htmlCode = $("#otpValue").parent().parent().html();
                                     $("#otpValue").parent().parent().addClass('has-danger is-focused');
                                     $("#otpValue").parent().parent().html(htmlCode + failureCrossCode);
                                     $("#otpValue").attr("placeholder", "Re-Enter the OTP recieved on your Phone");
-                                    localStorage.setItem("OtpVerified","no");
+                                    localStorage.setItem("OtpVerified", "no");
                                 }
                             },
-                            error : function(response) {
+                            error: function (response) {
                                 console.log('Error: ' + JSON.stringify(response));
                             }
                         });
-                        localStorage.setItem("count",count);
-                    }else{
+                        localStorage.setItem("count", count);
+                    } else {
                         $('.form-control-feedback').remove();
                         var htmlCode = $("#otpValue").parent().parent().html();
                         $("#otpValue").parent().parent().addClass('has-danger is-focused');
                         $("#otpValue").parent().parent().html(htmlCode + failureCrossCode);
                         $("#otpValue").attr("placeholder", "Max retries exceeded");
-                        localStorage.setItem("OtpVerified","no");
-                        $('#profile_submit').attr('disabled','disabled');
-                        localStorage.setItem("count",count);
+                        localStorage.setItem("OtpVerified", "no");
+                        $('#profile_submit').attr('disabled', 'disabled');
+                        localStorage.setItem("count", count);
                     }
                 }
             }
         }
     });
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('#twitter').sharrre({
             share: {
                 twitter: true
@@ -120,7 +121,7 @@
                     via: 'CreativeTim'
                 }
             },
-            click: function(api, options) {
+            click: function (api, options) {
                 api.simulateClick();
                 api.openPopup('twitter');
             },
@@ -134,7 +135,7 @@
             enableHover: false,
             enableTracking: false,
             enableCounter: false,
-            click: function(api, options) {
+            click: function (api, options) {
                 api.simulateClick();
                 api.openPopup('facebook');
             },
@@ -148,7 +149,7 @@
             enableCounter: false,
             enableHover: false,
             enableTracking: true,
-            click: function(api, options) {
+            click: function (api, options) {
                 api.simulateClick();
                 api.openPopup('googlePlus');
             },
@@ -159,7 +160,7 @@
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-46172202-1']);
     _gaq.push(['_trackPageview']);
-    (function() {
+    (function () {
         var ga = document.createElement('script');
         ga.type = 'text/javascript';
         ga.async = true;
@@ -168,9 +169,9 @@
         s.parentNode.insertBefore(ga, s);
     })();
     // Facebook Pixel Code Don't Delete
-    ! function(f, b, e, v, n, t, s) {
+    !function (f, b, e, v, n, t, s) {
         if (f.fbq) return;
-        n = f.fbq = function() {
+        n = f.fbq = function () {
             n.callMethod ?
                 n.callMethod.apply(n, arguments) : n.queue.push(arguments)
         };

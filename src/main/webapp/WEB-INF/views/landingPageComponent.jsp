@@ -19,7 +19,7 @@
 
 <jsp:include page="navbar.jsp"/>
 
-<div class="page-header" data-parallax="true" style="background-image: url('/agriculture/resources/img/sections/david-marcu.jpg');">
+<div class="page-header" data-parallax="true" style="background-image: url(<spring:url value="/resources/img/sections/david-marcu.jpg"/>);">
     <div class="filter"></div>
     <div class="content-center">
         <div class="container">

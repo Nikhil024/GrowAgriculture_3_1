@@ -73,12 +73,13 @@
 									<div class="line r"></div>
 								</div>
 									<input type="text" id="buyer" class="form-control" placeholder="Buyer PhoneNumber">
-									<div class="division">
-									</div>
-									<input type="password" class="form-control" placeholder="Password">
+									<div class="division"></div>
+									<input id="password" type="password" class="form-control" placeholder="Password">
 
-									<input type="password" class="form-control" placeholder="Confirm Password">
-
+									<input id="confirmPassword" type="password" class="form-control" placeholder="Confirm Password">
+                                    <div id="confirmPasswordMessage" class="typography-line" style="padding-left:0px;display: none">
+                                        <p class="text-danger"><spring:message code="com.grow.agriculture.password.not.equals"/></p>
+                                    </div>
 									<button id="register" class="btn btn-block btn-round"><spring:message code="com.grow.agriculture.register"/></button>
 								</form:form>
 								<div class="login">
@@ -119,6 +120,18 @@ $( "#buyer" ).keyup(function() {
 		$( "#farmer" ).prop("disabled", true);
 	}
 });
+
+
+$( "#confirmPassword" ).keyup(function() {
+    if($( "#password" ).val() == $( "#confirmPassword" ).val()){
+        $("#confirmPasswordMessage").hide();
+        $("#register").prop("disabled", false);
+    }else{
+        $("#confirmPasswordMessage").show();
+        $("#register").prop("disabled", true);
+    }
+});
+
 
 </script>
 </html>

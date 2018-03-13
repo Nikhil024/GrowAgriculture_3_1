@@ -25,7 +25,7 @@ import org.springframework.web.servlet.view.JstlView;
 
 @EnableWebMvc
 @Configuration
-@PropertySource("file:///D:/application.properties")
+@PropertySource(value = "file:///C:/application.properties", ignoreResourceNotFound = true)
 @ComponentScan("com.grow.agriculture.controllers")
 @EnableJpaRepositories(basePackages = "com.grow.agriculture.repository")
 public class GrowAgricultureContextConfiguration implements WebMvcConfigurer {
@@ -33,7 +33,7 @@ public class GrowAgricultureContextConfiguration implements WebMvcConfigurer {
 
 	@Value("${datasource.driver.class.name}")
 	private String driverClassName;
-	
+
 	@Value("${datasource.url.name}")
 	private String url;
 	
@@ -83,7 +83,7 @@ public class GrowAgricultureContextConfiguration implements WebMvcConfigurer {
 	private BasicDataSource dataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName("oracle.jdbc.driver.OracleDriver");
-		dataSource.setUrl("jdbc:oracle:thin:@localhost:1521:xe");
+		dataSource.setUrl("jdbc:oracle:thin:@localhost:1521:orcl");
 		dataSource.setUsername("nikhil");
 		dataSource.setPassword("admin");
 		return dataSource;

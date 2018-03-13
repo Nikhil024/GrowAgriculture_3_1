@@ -26,7 +26,7 @@ var lastScrollTop = 0;
 var delta = 5;
 var navbarHeight = 0;
 
-$(document).ready(function(){
+$(document).ready(function () {
     window_width = $(window).width();
 
 
@@ -34,47 +34,47 @@ $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
 
     //      Activate the switches with icons
-    if($('.switch').length != 0){
+    if ($('.switch').length != 0) {
         $('.switch')['bootstrapSwitch']();
     }
     //      Activate regular switches
-    if($("[data-toggle='switch']").length != 0){
-         $("[data-toggle='switch']").bootstrapSwitch();
+    if ($("[data-toggle='switch']").length != 0) {
+        $("[data-toggle='switch']").bootstrapSwitch();
     }
 
     //    Activate bootstrap-select
-    if($(".selectpicker").length != 0){
+    if ($(".selectpicker").length != 0) {
         $(".selectpicker").selectpicker();
     }
 
     $('.modal').appendTo('body');
 
-    if($(".tagsinput").length != 0){
+    if ($(".tagsinput").length != 0) {
         $(".tagsinput").tagsInput();
     }
 
     // Limit number of characters in limited textarea
     $('.textarea-limited').keyup(function () {
-      var max = $(this).attr('maxlength');
-      var len = $(this).val().length;
-      if (len >= max) {
-        $('#textarea-limited-message').text(' you have reached the limit');
-      } else {
-        var char = max - len;
-        $('#textarea-limited-message').text(char + ' characters left');
-      }
+        var max = $(this).attr('maxlength');
+        var len = $(this).val().length;
+        if (len >= max) {
+            $('#textarea-limited-message').text(' you have reached the limit');
+        } else {
+            var char = max - len;
+            $('#textarea-limited-message').text(char + ' characters left');
+        }
     });
 
     if (window_width >= 768) {
         big_image = $('.page-header[data-parallax="true"]');
 
-        if(big_image.length != 0){
-           $(window).on('scroll', pk.checkScrollForPresentationPage);
+        if (big_image.length != 0) {
+            $(window).on('scroll', pk.checkScrollForPresentationPage);
         }
     }
 
 
-    if($("#datetimepicker").length != 0){
+    if ($("#datetimepicker").length != 0) {
         $('#datetimepicker').datetimepicker({
             icons: {
                 time: "fa fa-clock-o",
@@ -89,37 +89,38 @@ $(document).ready(function(){
             }
         });
 
-    };
+    }
+    ;
 
     // Change the collor of navbar collapse
     $('#navbarToggler').on('show.bs.collapse', function () {
-        if( $('nav').hasClass('navbar-transparent') && $(document).scrollTop() < 50 ){
+        if ($('nav').hasClass('navbar-transparent') && $(document).scrollTop() < 50) {
             $('.navbar').addClass('no-transition');
             $('nav').removeClass('navbar-transparent');
         }
-    }).on('hidden.bs.collapse', function (){
-        if($(document).scrollTop() < 50 ){
+    }).on('hidden.bs.collapse', function () {
+        if ($(document).scrollTop() < 50) {
             $('.navbar').removeClass('no-transition');
             $('nav:first-of-type').addClass('navbar-transparent');
-    }
+        }
     });
 
     // Navbar color change on scroll
-    if($('.navbar[color-on-scroll]').length != 0){
+    if ($('.navbar[color-on-scroll]').length != 0) {
         $(window).on('scroll', pk.checkScrollForTransparentNavbar)
     }
 
     $('.btn-tooltip').tooltip();
     $('.label-tooltip').tooltip();
 
-	// Carousel
-	$('.carousel').carousel({
-      interval: 20000
+    // Carousel
+    $('.carousel').carousel({
+        interval: 20000
     });
 
-    $('.form-control').on("focus", function(){
+    $('.form-control').on("focus", function () {
         $(this).parent('.input-group').addClass("input-group-focus");
-    }).on("blur", function(){
+    }).on("blur", function () {
         $(this).parent(".input-group").removeClass("input-group-focus");
     });
 
@@ -133,141 +134,141 @@ $(document).ready(function(){
     pk.initVideoBackground();
 
     // Share buttons
-    if($('.twitter-sharrre').length != 0){
+    if ($('.twitter-sharrre').length != 0) {
         $('.twitter-sharrre').sharrre({
-          share: {
-            twitter: true
-          },
-          enableHover: false,
-          enabletracking: false,
-          enableCounter: false,
-          buttons: { twitter: {via: 'CreativeTim'}},
-          click: function(api, options){
-            api.simulateClick();
-            api.openPopup('twitter');
-          },
-          template: '<i class="fa fa-twitter"></i>',
-          url: 'http://demos.creative-tim.com/paper-kit-2-pro/presentation.html'
+            share: {
+                twitter: true
+            },
+            enableHover: false,
+            enabletracking: false,
+            enableCounter: false,
+            buttons: {twitter: {via: 'CreativeTim'}},
+            click: function (api, options) {
+                api.simulateClick();
+                api.openPopup('twitter');
+            },
+            template: '<i class="fa fa-twitter"></i>',
+            url: 'http://demos.creative-tim.com/paper-kit-2-pro/presentation.html'
         });
     }
 
-    if($('.twitter-sharrre-nav').length != 0){
+    if ($('.twitter-sharrre-nav').length != 0) {
         $('.twitter-sharrre-nav').sharrre({
-          share: {
-            twitter: true
-          },
-          enableHover: false,
-          enabletracking: false,
-          enableCounter: false,
-          buttons: { twitter: {via: 'CreativeTim'}},
-          click: function(api, options){
-            api.simulateClick();
-            api.openPopup('twitter');
-          },
-          template: '<i class="fa fa-twitter"></i><p class="hidden-lg-up">Twitter</p>',
-          url: 'http://demos.creative-tim.com/paper-kit-2-pro/presentation.html'
+            share: {
+                twitter: true
+            },
+            enableHover: false,
+            enabletracking: false,
+            enableCounter: false,
+            buttons: {twitter: {via: 'CreativeTim'}},
+            click: function (api, options) {
+                api.simulateClick();
+                api.openPopup('twitter');
+            },
+            template: '<i class="fa fa-twitter"></i><p class="hidden-lg-up">Twitter</p>',
+            url: 'http://demos.creative-tim.com/paper-kit-2-pro/presentation.html'
         });
     }
 
-    if($('.facebook-sharrre').length != 0){
+    if ($('.facebook-sharrre').length != 0) {
         $('.facebook-sharrre').sharrre({
-          share: {
-            facebook: true
-          },
-          enableHover: false,
-          enabletracking: false,
-          enableCounter: false,
-          click: function(api, options){
-            api.simulateClick();
-            api.openPopup('facebook');
-          },
-          template: '<i class="fa fa-facebook-square"></i>',
-          url: 'http://demos.creative-tim.com/paper-kit-2-pro/presentation.html'
+            share: {
+                facebook: true
+            },
+            enableHover: false,
+            enabletracking: false,
+            enableCounter: false,
+            click: function (api, options) {
+                api.simulateClick();
+                api.openPopup('facebook');
+            },
+            template: '<i class="fa fa-facebook-square"></i>',
+            url: 'http://demos.creative-tim.com/paper-kit-2-pro/presentation.html'
         });
     }
 
-    if($('.facebook-sharrre-nav').length != 0){
+    if ($('.facebook-sharrre-nav').length != 0) {
         $('.facebook-sharrre-nav').sharrre({
-          share: {
-            facebook: true
-          },
-          enableHover: false,
-          enabletracking: false,
-          enableCounter: false,
-          click: function(api, options){
-            api.simulateClick();
-            api.openPopup('facebook');
-          },
-          template: '<i class="fa fa-facebook-square"></i><p class="hidden-lg-up">Facebook</p>',
-          url: 'http://demos.creative-tim.com/paper-kit-2-pro/presentation.html'
+            share: {
+                facebook: true
+            },
+            enableHover: false,
+            enabletracking: false,
+            enableCounter: false,
+            click: function (api, options) {
+                api.simulateClick();
+                api.openPopup('facebook');
+            },
+            template: '<i class="fa fa-facebook-square"></i><p class="hidden-lg-up">Facebook</p>',
+            url: 'http://demos.creative-tim.com/paper-kit-2-pro/presentation.html'
         });
     }
 
-    if($('.linkedin-sharrre').length != 0){
+    if ($('.linkedin-sharrre').length != 0) {
         $('.linkedin-sharrre').sharrre({
-          share: {
-            linkedin: true
-          },
-          enableCounter: false,
-          enableHover: false,
-          enabletracking: false,
-          click: function(api, options){
-            api.simulateClick();
-            api.openPopup('linkedin');
-          },
-          template: '<i class="fa fa-linkedin"></i>',
-          url: 'http://demos.creative-tim.com/paper-kit-2-pro/presentation.html'
+            share: {
+                linkedin: true
+            },
+            enableCounter: false,
+            enableHover: false,
+            enabletracking: false,
+            click: function (api, options) {
+                api.simulateClick();
+                api.openPopup('linkedin');
+            },
+            template: '<i class="fa fa-linkedin"></i>',
+            url: 'http://demos.creative-tim.com/paper-kit-2-pro/presentation.html'
         });
     }
 
-    if($('.linkedin-sharrre-nav').length != 0){
+    if ($('.linkedin-sharrre-nav').length != 0) {
         $('.linkedin-sharrre-nav').sharrre({
-          share: {
-            linkedin: true
-          },
-          enableCounter: false,
-          enableHover: false,
-          enabletracking: false,
-          click: function(api, options){
-            api.simulateClick();
-            api.openPopup('linkedin');
-          },
-          template: '<i class="fa fa-linkedin"></i><p class="hidden-lg-up">LinkedIn</p>',
-          url: 'http://demos.creative-tim.com/paper-kit-2-pro/presentation.html'
+            share: {
+                linkedin: true
+            },
+            enableCounter: false,
+            enableHover: false,
+            enabletracking: false,
+            click: function (api, options) {
+                api.simulateClick();
+                api.openPopup('linkedin');
+            },
+            template: '<i class="fa fa-linkedin"></i><p class="hidden-lg-up">LinkedIn</p>',
+            url: 'http://demos.creative-tim.com/paper-kit-2-pro/presentation.html'
         });
     }
 
     // Activate Navbar
-    if($('.nav-down').length != 0){
+    if ($('.nav-down').length != 0) {
         pk.checkScrollForMovingNavbar();
-    };
+    }
+    ;
 
 });
 
-$(document).on('click', '.navbar-toggler', function(){
+$(document).on('click', '.navbar-toggler', function () {
     $toggle = $(this);
-    if(pk.misc.navbar_menu_visible == 1) {
+    if (pk.misc.navbar_menu_visible == 1) {
         $('html').removeClass('nav-open');
         pk.misc.navbar_menu_visible = 0;
-        setTimeout(function(){
+        setTimeout(function () {
             $toggle.removeClass('toggled');
             $('#bodyClick').remove();
         }, 550);
     } else {
-        setTimeout(function(){
+        setTimeout(function () {
             $toggle.addClass('toggled');
         }, 580);
 
         div = '<div id="bodyClick"></div>';
-        $(div).appendTo("body").click(function() {
+        $(div).appendTo("body").click(function () {
             $('html').removeClass('nav-open');
             pk.misc.navbar_menu_visible = 0;
             $('#bodyClick').remove();
-            setTimeout(function(){
+            setTimeout(function () {
                 $toggle.removeClass('toggled');
             }, 550);
         });
-
 
 
         $('html').addClass('nav-open');
@@ -277,33 +278,33 @@ $(document).on('click', '.navbar-toggler', function(){
 
 
 pk = {
-    misc:{
+    misc: {
         navbar_menu_visible: 0
     },
-    checkScrollForTransparentNavbar: debounce(function() {
-        	if($(document).scrollTop() > $(".navbar").attr("color-on-scroll") ) {
-                if(transparent) {
-                    transparent = false;
-                    $('.navbar[color-on-scroll]').removeClass('navbar-transparent');
-                }
-            } else {
-                if( !transparent ) {
-                    transparent = true;
-                    $('.navbar[color-on-scroll]').addClass('navbar-transparent');
-                }
+    checkScrollForTransparentNavbar: debounce(function () {
+        if ($(document).scrollTop() > $(".navbar").attr("color-on-scroll")) {
+            if (transparent) {
+                transparent = false;
+                $('.navbar[color-on-scroll]').removeClass('navbar-transparent');
             }
+        } else {
+            if (!transparent) {
+                transparent = true;
+                $('.navbar[color-on-scroll]').addClass('navbar-transparent');
+            }
+        }
     }, 17),
 
-    checkScrollForMovingNavbar: function(){
+    checkScrollForMovingNavbar: function () {
 
         // Hide Header on on scroll down
         navbarHeight = $('.navbar').outerHeight();
 
-        $(window).scroll(function(event){
+        $(window).scroll(function (event) {
             didScroll = true;
         });
 
-        setInterval(function() {
+        setInterval(function () {
             if (didScroll) {
                 hasScrolled();
                 didScroll = false;
@@ -313,24 +314,24 @@ pk = {
 
     },
 
-    checkScrollForPresentationPage: debounce(function(){
+    checkScrollForPresentationPage: debounce(function () {
         oVal = ($(window).scrollTop() / 3);
         big_image.css({
-            'transform':'translate3d(0,' + oVal +'px,0)',
-            '-webkit-transform':'translate3d(0,' + oVal +'px,0)',
-            '-ms-transform':'translate3d(0,' + oVal +'px,0)',
-            '-o-transform':'translate3d(0,' + oVal +'px,0)'
+            'transform': 'translate3d(0,' + oVal + 'px,0)',
+            '-webkit-transform': 'translate3d(0,' + oVal + 'px,0)',
+            '-ms-transform': 'translate3d(0,' + oVal + 'px,0)',
+            '-o-transform': 'translate3d(0,' + oVal + 'px,0)'
         });
     }, 4),
 
-    initVideoBackground: function(){
-        $('[data-toggle="video"]').click(function(){
+    initVideoBackground: function () {
+        $('[data-toggle="video"]').click(function () {
             id_video = $(this).data('video');
             video = $('#' + id_video).get(0);
 
             parent = $(this).parent('div').parent('div');
 
-            if(video.paused){
+            if (video.paused) {
                 video.play();
                 $(this).html('<i class="fa fa-pause"></i> Pause Video');
                 parent.addClass('state-play');
@@ -342,45 +343,45 @@ pk = {
         });
     },
 
-    initPopovers: function(){
-        if($('[data-toggle="popover"]').length != 0){
+    initPopovers: function () {
+        if ($('[data-toggle="popover"]').length != 0) {
             $('body').append('<div class="popover-filter"></div>');
 
             //    Activate Popovers
-           $('[data-toggle="popover"]').popover().on('show.bs.popover', function () {
-                $('.popover-filter').click(function(){
+            $('[data-toggle="popover"]').popover().on('show.bs.popover', function () {
+                $('.popover-filter').click(function () {
                     $(this).removeClass('in');
                     $('[data-toggle="popover"]').popover('hide');
                 });
                 $('.popover-filter').addClass('in');
-            }).on('hide.bs.popover', function(){
+            }).on('hide.bs.popover', function () {
                 $('.popover-filter').removeClass('in');
             });
 
         }
     },
 
-    initSliders: function(){
+    initSliders: function () {
         // Sliders for demo purpose in refine cards section
-        if($('#sliderRegular').length != 0 ){
+        if ($('#sliderRegular').length != 0) {
             var rangeSlider = document.getElementById('sliderRegular');
             noUiSlider.create(rangeSlider, {
-            	start: [ 5000 ],
-            	range: {
-            		'min': [  2000 ],
-            		'max': [ 10000 ]
-            	}
+                start: [5000],
+                range: {
+                    'min': [2000],
+                    'max': [10000]
+                }
             });
         }
-        if($('#sliderDouble').length != 0){
+        if ($('#sliderDouble').length != 0) {
             var slider = document.getElementById('sliderDouble');
             noUiSlider.create(slider, {
-            	start: [20, 80],
-            	connect: true,
-            	range: {
-            		'min': 0,
-            		'max': 100
-            	}
+                start: [20, 80],
+                connect: true,
+                range: {
+                    'min': 0,
+                    'max': 100
+                }
             });
         }
 
@@ -390,16 +391,16 @@ pk = {
 }
 
 demo = {
-    initPickColor: function(){
-        $('.pick-class-label').click(function(){
+    initPickColor: function () {
+        $('.pick-class-label').click(function () {
             var new_class = $(this).attr('new-class');
             var old_class = $('#display-buttons').attr('data-class');
             var display_div = $('#display-buttons');
-            if(display_div.length) {
-            var display_buttons = display_div.find('.btn');
-            display_buttons.removeClass(old_class);
-            display_buttons.addClass(new_class);
-            display_div.attr('data-class', new_class);
+            if (display_div.length) {
+                var display_buttons = display_div.find('.btn');
+                display_buttons.removeClass(old_class);
+                display_buttons.addClass(new_class);
+                display_div.attr('data-class', new_class);
             }
         });
     }
@@ -411,32 +412,32 @@ demo = {
 // leading edge, instead of the trailing.
 
 function debounce(func, wait, immediate) {
-	var timeout;
-	return function() {
-		var context = this, args = arguments;
-		clearTimeout(timeout);
-		timeout = setTimeout(function() {
-			timeout = null;
-			if (!immediate) func.apply(context, args);
-		}, wait);
-		if (immediate && !timeout) func.apply(context, args);
-	};
+    var timeout;
+    return function () {
+        var context = this, args = arguments;
+        clearTimeout(timeout);
+        timeout = setTimeout(function () {
+            timeout = null;
+            if (!immediate) func.apply(context, args);
+        }, wait);
+        if (immediate && !timeout) func.apply(context, args);
+    };
 };
 
 function hasScrolled() {
     var st = $(this).scrollTop();
     // Make sure they scroll more than delta
-    if(Math.abs(lastScrollTop - st) <= delta)
+    if (Math.abs(lastScrollTop - st) <= delta)
         return;
 
     // If they scrolled down and are past the navbar, add class .nav-up.
     // This is necessary so you never see what is "behind" the navbar.
-    if (st > lastScrollTop && st > navbarHeight){
+    if (st > lastScrollTop && st > navbarHeight) {
         // Scroll Down
         $('.navbar.nav-down').removeClass('nav-down').addClass('nav-up');
     } else {
         // Scroll Up
-        if(st + $(window).height() < $(document).height()) {
+        if (st + $(window).height() < $(document).height()) {
             $('.navbar.nav-up').removeClass('nav-up').addClass('nav-down');
         }
     }
@@ -448,8 +449,11 @@ var _gaq = _gaq || [];
 _gaq.push(['_setAccount', 'UA-46172202-1']);
 _gaq.push(['_trackPageview']);
 
-(function() {
-var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+(function () {
+    var ga = document.createElement('script');
+    ga.type = 'text/javascript';
+    ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(ga, s);
 })();

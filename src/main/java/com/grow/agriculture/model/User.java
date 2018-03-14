@@ -15,8 +15,6 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    @NotNull(message = "Please enter a name..!")
-    private String name;
     @Column(name = "phone_number")
     @NotNull(message = "Please enter a Phone Number!")
     @Length(min = 10, max = 10, message = "Please enter a valid Phone Number!")
@@ -28,27 +26,25 @@ public class User implements Serializable {
     @NotNull(message = "Please enter a password..!")
     @Length(min = 6, message = "Enter a minimum 6 characters..!")
     private String confirmPassword;
-    @Column(name = "date_of_birth")
-    @NotNull(message = "Please enter a date of birth..!")
-    private LocalDate dateOfBirth;
     @Column(name = "created_date")
     private LocalDate createdDate;
+    
+    private int otp;
+    
+    public int getOtp() {
+		return otp;
+	}
 
-    public Integer getId() {
+	public void setOtp(int otp) {
+		this.otp = otp;
+	}
+
+	public Integer getId() {
         return id;
     }
 
     public User setId(Integer id) {
         this.id = id;
-        return this;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public User setName(String name) {
-        this.name = name;
         return this;
     }
 
@@ -79,15 +75,6 @@ public class User implements Serializable {
         return this;
     }
 
-    public LocalDate getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public User setDateOfBirth(LocalDate dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-        return this;
-    }
-
     public LocalDate getCreatedDate() {
         return createdDate;
     }
@@ -98,15 +85,9 @@ public class User implements Serializable {
     }
 
     @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", phoneNumber=" + phoneNumber +
-                ", password='" + password + '\'' +
-                ", confirmPassword='" + confirmPassword + '\'' +
-                ", dateOfBirth=" + dateOfBirth +
-                ", createdDate=" + createdDate +
-                '}';
-    }
+	public String toString() {
+		return "User [id=" + id + ", phoneNumber=" + phoneNumber + ", password=" + password
+				+ ", confirmPassword=" + confirmPassword +", createdDate="
+				+ createdDate + ", otp=" + otp + "]";
+	}
 }

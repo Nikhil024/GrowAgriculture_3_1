@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -14,6 +15,7 @@ public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "users_id")
     private Integer id;
     @Column(name = "phone_number")
     @NotNull(message = "Please enter a Phone Number!")
@@ -26,68 +28,52 @@ public class User implements Serializable {
     @NotNull(message = "Please enter a password..!")
     @Length(min = 6, message = "Enter a minimum 6 characters..!")
     private String confirmPassword;
+    @Column(name = "user_type")
+    private String userType;
+    
     @Column(name = "created_date")
     private LocalDate createdDate;
     
-    private int otp;
-    
-    public int getOtp() {
-		return otp;
-	}
-
-	public void setOtp(int otp) {
-		this.otp = otp;
-	}
-
 	public Integer getId() {
-        return id;
-    }
-
-    public User setId(Integer id) {
-        this.id = id;
-        return this;
-    }
-
-    public Long getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public User setPhoneNumber(Long phoneNumber) {
-        this.phoneNumber = phoneNumber;
-        return this;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public User setPassword(String password) {
-        this.password = password;
-        return this;
-    }
-
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
-
-    public User setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
-        return this;
-    }
-
-    public LocalDate getCreatedDate() {
-        return createdDate;
-    }
-
-    public User setCreatedDate(LocalDate createdDate) {
-        this.createdDate = createdDate;
-        return this;
-    }
-
-    @Override
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public Long getPhoneNumber() {
+		return phoneNumber;
+	}
+	public void setPhoneNumber(Long phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
+	public String getUserType() {
+		return userType;
+	}
+	public void setUserType(String userType) {
+		this.userType = userType;
+	}
+	public LocalDate getCreatedDate() {
+		return createdDate;
+	}
+	public void setCreatedDate(LocalDate createdDate) {
+		this.createdDate = createdDate;
+	}
+	
+	@Override
 	public String toString() {
-		return "User [id=" + id + ", phoneNumber=" + phoneNumber + ", password=" + password
-				+ ", confirmPassword=" + confirmPassword +", createdDate="
-				+ createdDate + ", otp=" + otp + "]";
+		return "User [id=" + id + ", phoneNumber=" + phoneNumber + ", password=" + password + ", confirmPassword="
+				+ confirmPassword + ", userType=" + userType + ", createdDate=" + createdDate + "]";
 	}
 }

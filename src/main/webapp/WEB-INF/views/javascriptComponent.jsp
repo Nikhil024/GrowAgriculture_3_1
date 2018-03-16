@@ -22,3 +22,8 @@
 <script src="https://cdn.rawgit.com/nnattawat/flip/master/dist/jquery.flip.min.js"></script>
 <script src="<spring:url value="/resources/js/growAgriculture.js"/>"></script>
 
+<script type="text/javascript">
+
+var contextPath = "${pageContext.request.contextPath}";
+
+</script>

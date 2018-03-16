@@ -26,7 +26,7 @@ import org.springframework.web.servlet.view.JstlView;
 @EnableWebMvc
 @Configuration
 @PropertySource(value = "classpath:application.properties", ignoreResourceNotFound = true)
-@ComponentScan("com.grow.agriculture.controllers")
+@ComponentScan({"com.grow.agriculture.controllers","com.grow.agriculture.rest.controllers"})
 @EnableJpaRepositories(basePackages = "com.grow.agriculture.repository")
 public class GrowAgricultureContextConfiguration implements WebMvcConfigurer {
 	private static final Logger log = LoggerFactory.getLogger(GrowAgricultureContextConfiguration.class);

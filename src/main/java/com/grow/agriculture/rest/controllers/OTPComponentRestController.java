@@ -1,4 +1,4 @@
-package com.grow.agriculture.controllers;
+package com.grow.agriculture.rest.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,31 +26,19 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 
 @Controller
 @PropertySource(value = "classpath:application.properties")
-public class OTPComponentController {
+public class OTPComponentRestController {
 
-	private static final Logger log = LoggerFactory.getLogger(OTPComponentController.class);
-
-	@Autowired
-	UserRepository userRepository;
-
-	@Autowired
-	OTPRepository otpRepository;
+	private static final Logger log = LoggerFactory.getLogger(OTPComponentRestController.class);
 
 	@Value("${com.grow.agriculture.otp.url}")
 	private String otpURL;
 
 	@Value("${com.grow.agriculture.otp.verify.url}")
 	private String otpVerifyURL;
-	
-	
-	private User user;
 
 	@RequestMapping(value = "/sendOtp", method = RequestMethod.POST)
 	@ResponseBody
 	public List<String> sendOTP(@RequestParam("phoneNumber") String phoneNumber) throws UnirestException {
-		user = userRepository.findByPhoneNumber(Long.valueOf(phoneNumber));
-		OTPMessage otp = new OTPMessage();
-
 		List<String> jsonList = new ArrayList<>();
 
 		otpURL = otpURL.replace("phoneNumber", phoneNumber);
@@ -62,16 +50,8 @@ public class OTPComponentController {
 		String status = jsonObject.getString("Status");
 		String details = jsonObject.getString("Details");
 
-		otp.setOtp("Generated");
-		otp.setSessionId(details);
-		otp.setStatus(status);
-		otp.setUserId(user.getId());
 		jsonList.add(status);
 		jsonList.add(details);
-			
-		
-		log.info("in sendotp::: "+otp.toString());
-		otpRepository.save(otp);
 
 		return jsonList;
 	}
@@ -81,28 +61,18 @@ public class OTPComponentController {
 	public List<String> checkOTP(@RequestParam("otpValue") String otpValue, @RequestParam("sessionID") String sessionID)
 			throws UnirestException {
 		List<String> jsonList = new ArrayList<>();
-		
-		
-		
+
 		otpVerifyURL = otpVerifyURL.replace("sessionID", sessionID);
 		otpVerifyURL = otpVerifyURL.replace("otpValue", otpValue);
 
 		HttpResponse<JsonNode> response = Unirest.get(otpVerifyURL)
 				.header("content-type", "application/x-www-form-urlencoded").asJson();
-		OTPMessage otp = new OTPMessage();
 		JSONObject jsonObject = response.getBody().getObject();
 		String status = jsonObject.getString("Status");
 		String details = jsonObject.getString("Details");
 
 		jsonList.add(status);
 		jsonList.add(details);
-
-		otp.setOtp(otpValue);
-		otp.setSessionId(details);
-		otp.setStatus(status);
-		otp.setUserId(user.getId());
-		log.info("in checkOtp::: "+otp.toString());
-		otpRepository.save(otp);
 
 		return jsonList;
 	}

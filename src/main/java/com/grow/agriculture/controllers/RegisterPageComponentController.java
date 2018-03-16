@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.grow.agriculture.model.OTPMessage;
 import com.grow.agriculture.model.User;
 
 @Controller
@@ -21,14 +22,15 @@ public class RegisterPageComponentController {
 	@GetMapping("/register")
 	public ModelAndView register() {
 		ModelAndView mav = new ModelAndView();
-		mav.addObject(MODEL_NAME, new User());
+		mav.addObject(MODEL_NAME, new OTPMessage());
 		mav.setViewName(VIEW_NAME);
 		return mav;
 	}
 	
 	
 	@PostMapping("/register")
-	public ModelAndView registerUser(@ModelAttribute(MODEL_NAME) User user, BindingResult result) {
+	public ModelAndView registerUser(@ModelAttribute(MODEL_NAME) OTPMessage user, BindingResult result) {
+		
 		log.info(user.toString());
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(VIEW_NAME);

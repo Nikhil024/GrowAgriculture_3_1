@@ -33,6 +33,7 @@ public class RegisterPageComponentController {
 		
 		log.info(user.toString());
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("","");
 		mav.setViewName(VIEW_NAME);
 		return mav;
 		

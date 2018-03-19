@@ -36,6 +36,9 @@ public class OTPMessage implements Serializable {
 	private String status;
 	private int tries;
 
+	@Column(name = "otp_verified")
+	private boolean otpVerified;
+	
 	@OneToOne
 	@NotNull
 	@JoinColumn(name = "users_id", referencedColumnName = "users_id")
@@ -100,9 +103,18 @@ public class OTPMessage implements Serializable {
 		this.createdDate = createdDate;
 	}
 
+	public boolean isOtpVerified() {
+		return otpVerified;
+	}
+
+	public void setOtpVerified(boolean otpVerified) {
+		this.otpVerified = otpVerified;
+	}
+
 	@Override
 	public String toString() {
 		return "OTPMessage [id=" + id + ", otpValue=" + otpValue + ", sessionId=" + sessionId + ", status=" + status
-				+ ", tries=" + tries + ", user=" + user + ", createdDate=" + createdDate + "]";
+				+ ", tries=" + tries + ", otpVerified=" + otpVerified + ", user=" + user + ", createdDate="
+				+ createdDate + "]";
 	}
 }

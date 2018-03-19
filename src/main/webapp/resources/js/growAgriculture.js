@@ -28,19 +28,27 @@ $(document).ready(function() {
 $("#otpRegisterPopup")
 		.click(
 				function() {
+					console.log("1");
 					if ($("#buyer").val().length < 10
 							&& $("#farmer").val().length < 10) {
+						console.log("2");
 						$("#confirmPhoneNumberMessage").show();
 						$("#otpRegisterPopup").prop("disabled", true);
 					} else {
+						console.log("3");
 						if (otpSubmitTimes <= 3) {
+							console.log("4");
 							$('#otpSuccessSent').show().fadeOut(5000);
 							if (farmer) {
+								console.log("5");
 								phoneNumber = $("#farmer").val();
 							} else if (buyer) {
+								console.log("6");
 								phoneNumber = $("#buyer").val();
 							}
+							console.log("7");
 							sendOTP(phoneNumber);
+							console.log("8");
 						} else {
 							$("#otpDangerSent").show().text(
 									"Sorry you have no retries left!!");
@@ -122,8 +130,8 @@ $("#confirmPassword").keyup(function() {
 // Ajax Calls
 
 function sendOTP(phoneNumber) {
-
-	/*$.ajax({
+	console.log("phoneNumber:: "+phoneNumber);
+	$.ajax({
 		type : "POST",
 		url : contextPath + "/sendOtp",
 		data : "phoneNumber=" + phoneNumber,
@@ -136,23 +144,38 @@ function sendOTP(phoneNumber) {
 			$('#otpSuccessSent').hide();
 			console.log('Error: ' + JSON.stringify(e));
 		}
-	});*/
+	});
 
 }
 
 function checkOTP(otpValue, sessionID) {
-
-	/*
-	 * $.ajax({ type : "POST", url : contextPath + "/checkOtp", data :
-	 * "otpValue=" + otpValue + "&sessionID=" + sessionID, success :
-	 * function(response) { if (response[1] == "OTP Matched") {
-	 * $("#otp").val(otpValue); $("#sessionID").val(sessionID);
-	 * $("#status").val(response[1]); $("#userRegister").submit(); } else {
-	 * $("#otpDangerSent").show(); $("#register").prop("disabled", true); } },
-	 * error : function(response) { $("#register").prop("disabled", true);
-	 * $("#otpWarningSent").show(); $('#otpSuccessSent').hide();
-	 * console.log('Error: ' + JSON.stringify(e)); } });
-	 */
+	console.log("otpValue:: "+otpValue);
+	console.log("sessionID:: "+sessionID);
+	  $.ajax({
+		type : "POST",
+		url : contextPath + "/checkOtp",
+		data : "otpValue=" + otpValue + "&sessionID=" + sessionID,
+		success : function(response) {
+			if (response[1] == "OTP Matched") {
+				$("#otp").val(otpValue);
+				$("#sessionID").val(sessionID);
+				$("#status").val(response[1]);
+				$("#verified").val(true);
+				$("#userRegister").submit();
+			} else {
+				$("#verified").val(false);
+				$("#otpDangerSent").show();
+				$("#register").prop("disabled", true);
+			}
+		},
+		error : function(response) {
+			$("#register").prop("disabled", true);
+			$("#otpWarningSent").show();
+			$('#otpSuccessSent').hide();
+			console.log('Error: ' + JSON.stringify(e));
+		}
+	});
+	 
 
 }
 

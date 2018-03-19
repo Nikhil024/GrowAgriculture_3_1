@@ -41,15 +41,18 @@ public class OTPComponentRestController {
 	public List<String> sendOTP(@RequestParam("phoneNumber") String phoneNumber) throws UnirestException {
 		List<String> jsonList = new ArrayList<>();
 
-		otpURL = otpURL.replace("phoneNumber", phoneNumber);
+		/*otpURL = otpURL.replace("phoneNumber", phoneNumber);
 
 		HttpResponse<JsonNode> response = Unirest.get(otpURL)
 				.header("content-type", "application/x-www-form-urlencoded").asJson();
 
 		JSONObject jsonObject = response.getBody().getObject();
 		String status = jsonObject.getString("Status");
-		String details = jsonObject.getString("Details");
+		String details = jsonObject.getString("Details");*/
 
+		String status = "success";
+		String details = "OTP Sent";
+		
 		jsonList.add(status);
 		jsonList.add(details);
 
@@ -62,15 +65,17 @@ public class OTPComponentRestController {
 			throws UnirestException {
 		List<String> jsonList = new ArrayList<>();
 
-		otpVerifyURL = otpVerifyURL.replace("sessionID", sessionID);
+		/*otpVerifyURL = otpVerifyURL.replace("sessionID", sessionID);
 		otpVerifyURL = otpVerifyURL.replace("otpValue", otpValue);
 
 		HttpResponse<JsonNode> response = Unirest.get(otpVerifyURL)
 				.header("content-type", "application/x-www-form-urlencoded").asJson();
 		JSONObject jsonObject = response.getBody().getObject();
 		String status = jsonObject.getString("Status");
-		String details = jsonObject.getString("Details");
-
+		String details = jsonObject.getString("Details");*/
+		
+		String status = "success";
+		String details = "OTP Matched";
 		jsonList.add(status);
 		jsonList.add(details);
 

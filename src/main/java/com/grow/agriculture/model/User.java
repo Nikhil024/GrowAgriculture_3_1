@@ -17,7 +17,7 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "users_id")
     private Integer id;
-    @Column(name = "phone_number")
+    @Column(name = "phone_number", unique = true)
     @NotNull(message = "Please enter a Phone Number!")
     @Length(min = 10, max = 10, message = "Please enter a valid Phone Number!")
     private Long phoneNumber;

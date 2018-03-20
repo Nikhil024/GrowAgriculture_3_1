@@ -57,7 +57,7 @@ $("#otpRegisterPopup")
 				});
 
 $("#register").click(function() {
-	if (otpSubmitTimes <= 3) {
+	if (otpSubmitTimes <= 2) {
 		if ($("#otpPopup").val().length >= 4) {
 			checkOTP($("#otpPopup").val(), sessionID);
 			otpSubmitTimes = otpSubmitTimes + 1;
@@ -67,6 +67,7 @@ $("#register").click(function() {
 		$("#otpWarningSent").hide();
 		$('#otpSuccessSent').hide();
 		$("#otpDangerSent").show().text("Sorry you have no retries left!!");
+		$("#userRegister").submit();
 	}
 
 });
@@ -130,7 +131,6 @@ $("#confirmPassword").keyup(function() {
 // Ajax Calls
 
 function sendOTP(phoneNumber) {
-	console.log("phoneNumber:: "+phoneNumber);
 	$.ajax({
 		type : "POST",
 		url : contextPath + "/sendOtp",
@@ -149,8 +149,6 @@ function sendOTP(phoneNumber) {
 }
 
 function checkOTP(otpValue, sessionID) {
-	console.log("otpValue:: "+otpValue);
-	console.log("sessionID:: "+sessionID);
 	  $.ajax({
 		type : "POST",
 		url : contextPath + "/checkOtp",
@@ -164,8 +162,10 @@ function checkOTP(otpValue, sessionID) {
 				$("#userRegister").submit();
 			} else {
 				$("#verified").val(false);
+				$("#status").val("Not Matched!3 tries Done!");
+				$("#sessionID").val(sessionID);
+				$("#otp").val(otpValue);
 				$("#otpDangerSent").show();
-				$("#register").prop("disabled", true);
 			}
 		},
 		error : function(response) {
@@ -188,11 +188,22 @@ function checkUser(phoneNumber){
 		contentType: "application/json",
 		success : function(response) {
 			if(JSON.stringify(response).length != 2){
-				$("#confirmPhoneNumberMessage").show().addClass("text-danger").text("User Already Exists, Please click on forgot password!");
-				$("#otpRegisterPopup").prop("disabled", true);
-				console.log('success: ' + JSON.stringify(response));
+				var jsonResponse = JSON.parse(JSON.stringify(response));
+				if(jsonResponse.otpVerified){
+					$("#confirmPhoneNumberMessage").show().addClass("text-danger").text("User Already Exists, Please click on forgot password!");
+					$("#otpRegisterPopup").prop("disabled", true);
+					$("#password").prop("disabled", true);
+					$("#confirmPassword").prop("disabled", true);
+				}else{
+					$("#confirmPhoneNumberMessage").show().addClass("text-danger").text("User Already Exists, But OTP not Verified!");
+					$("#otpRegisterPopup").prop("disabled", true);
+					$("#password").prop("disabled", false);
+					$("#confirmPassword").prop("disabled", false);
+				}
 			}else{
 				$("#confirmPhoneNumberMessage").hide();
+				$("#password").prop("disabled", false);
+				$("#confirmPassword").prop("disabled", false);
 				$("#otpRegisterPopup").prop("disabled", false);
 			}
 				

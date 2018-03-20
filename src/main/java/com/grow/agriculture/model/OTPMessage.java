@@ -3,8 +3,10 @@ package com.grow.agriculture.model;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -36,10 +38,8 @@ public class OTPMessage implements Serializable {
 	private String status;
 	private int tries;
 
-	@Column(name = "otp_verified")
-	private boolean otpVerified;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@NotNull
 	@JoinColumn(name = "users_id", referencedColumnName = "users_id")
 	private User user;
@@ -103,18 +103,10 @@ public class OTPMessage implements Serializable {
 		this.createdDate = createdDate;
 	}
 
-	public boolean isOtpVerified() {
-		return otpVerified;
-	}
-
-	public void setOtpVerified(boolean otpVerified) {
-		this.otpVerified = otpVerified;
-	}
 
 	@Override
 	public String toString() {
 		return "OTPMessage [id=" + id + ", otpValue=" + otpValue + ", sessionId=" + sessionId + ", status=" + status
-				+ ", tries=" + tries + ", otpVerified=" + otpVerified + ", user=" + user + ", createdDate="
-				+ createdDate + "]";
+				+ ", tries=" + tries + ", user=" + user + ", createdDate=" + createdDate + "]";
 	}
 }

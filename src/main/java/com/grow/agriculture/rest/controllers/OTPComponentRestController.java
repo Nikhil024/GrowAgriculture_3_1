@@ -75,7 +75,7 @@ public class OTPComponentRestController {
 		String details = jsonObject.getString("Details");*/
 		
 		String status = "success";
-		String details = "OTP Matched";
+		String details = "OTP Matchedn";
 		jsonList.add(status);
 		jsonList.add(details);
 

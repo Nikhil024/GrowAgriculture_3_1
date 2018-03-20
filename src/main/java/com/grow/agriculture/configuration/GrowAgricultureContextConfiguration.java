@@ -94,7 +94,7 @@ public class GrowAgricultureContextConfiguration implements WebMvcConfigurer {
         HibernateJpaVendorAdapter hibernateJpa = new HibernateJpaVendorAdapter();
         hibernateJpa.setDatabasePlatform("org.hibernate.dialect.Oracle10gDialect");
         hibernateJpa.setShowSql(true);
-        hibernateJpa.setGenerateDdl(true);
+      /*  hibernateJpa.setGenerateDdl(true);*/
         hibernateJpa.setDatabase(Database.ORACLE);
         LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
         emf.setDataSource(dataSource());
@@ -107,7 +107,7 @@ public class GrowAgricultureContextConfiguration implements WebMvcConfigurer {
 	
 	private final Properties jpaProperties() {
 		Properties hibernateProperties = new Properties();
-		hibernateProperties.setProperty("hibernate.hbm2ddl.auto", "create-drop");
+	/*	hibernateProperties.setProperty("hibernate.hbm2ddl.auto", "create");*/
 		hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.Oracle10gDialect");
 		hibernateProperties.put("hibernate.show_sql", "true");
 		hibernateProperties.put("hibernate.format_sql", "true");

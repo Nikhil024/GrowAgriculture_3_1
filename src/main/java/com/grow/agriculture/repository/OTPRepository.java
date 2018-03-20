@@ -7,4 +7,5 @@ import com.grow.agriculture.model.OTPMessage;
 
 @Repository
 public interface OTPRepository extends JpaRepository<OTPMessage, Integer> {
+	
 }

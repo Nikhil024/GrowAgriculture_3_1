@@ -87,7 +87,7 @@
                                    <form:input path="sessionId" id="sessionID" type="hidden"/>
                                    <form:input path="status" id="status" type="hidden"/>
                                    <form:input path="tries" id="tries" type="hidden"/>
-                                   <form:input path="otpVerified" id="verified" type="hidden"/>
+                                   <form:input path="user.otpVerified" id="verified" type="hidden"/>
                                    <form:input path="user.userType" id="userType" type="hidden"/>
                                    
                                     <div class="row" id="modals">

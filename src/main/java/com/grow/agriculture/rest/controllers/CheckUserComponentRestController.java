@@ -23,14 +23,15 @@ public class CheckUserComponentRestController {
 	@PostMapping("/checkUser")
 	@ResponseBody
 	public User checkUser(@RequestBody Long phoneNumber) {
-		log.info("PhoneNumber:::::::::::"+phoneNumber);
+		return null;
+		/*log.info("PhoneNumber:::::::::::"+phoneNumber);
 		Optional<User> optional = userRepository.findByPhoneNumber(phoneNumber);
 		
 		if(optional.isPresent()) {
 			return optional.get();
 		}else {
 			return null;
-		}
+		}*/
 		
 	}
 }

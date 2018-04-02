@@ -1,15 +1,11 @@
 package com.grow.agriculture.repository;
 
-import com.grow.agriculture.model.User;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-import java.util.Optional;
+import com.grow.agriculture.model.User;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Integer> {
+public interface UserRepository extends CrudRepository<User, Long>{
 
-    Optional<User> findByPhoneNumber(Long phoneNumber);
-    int phoneNumberExists(Long phoneNumber);
 }

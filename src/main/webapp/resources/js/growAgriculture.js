@@ -8,6 +8,7 @@ var phoneNumber;
 var sessionID = "";
 var otpSubmitTimes = 0;
 var otpRetryTimes = 0;
+var phoneNumberPattern = /^[6-9]\d{9}$/;
 
 $(document).ready(function() {
 	if ($("#buyer").val() == "" && $("#farmer").val() == "") {
@@ -28,27 +29,21 @@ $(document).ready(function() {
 $("#otpRegisterPopup")
 		.click(
 				function() {
-					console.log("1");
 					if ($("#buyer").val().length < 10
 							&& $("#farmer").val().length < 10) {
-						console.log("2");
-						$("#confirmPhoneNumberMessage").show();
+						$("#confirmPhoneNumberMessage").text(
+								"Please enter a Phone Number!").addClass(
+								"text-danger").show();
 						$("#otpRegisterPopup").prop("disabled", true);
 					} else {
-						console.log("3");
 						if (otpSubmitTimes <= 3) {
-							console.log("4");
 							$('#otpSuccessSent').show().fadeOut(5000);
 							if (farmer) {
-								console.log("5");
 								phoneNumber = $("#farmer").val();
 							} else if (buyer) {
-								console.log("6");
 								phoneNumber = $("#buyer").val();
 							}
-							console.log("7");
 							sendOTP(phoneNumber);
-							console.log("8");
 						} else {
 							$("#otpDangerSent").show().text(
 									"Sorry you have no retries left!!");
@@ -77,18 +72,29 @@ $("#farmer").keyup(function() {
 		$("#buyer").prop("disabled", false);
 		farmer = true;
 		buyer = false;
-		$("#userType").val("farmer");
+		$("#userType").val("FARMER");
 	} else {
 		$("#buyer").prop("disabled", true);
 	}
 
 	if ($("#farmer").val().length == 10) {
-		$("#confirmPhoneNumberMessage").hide();
-		$("#otpRegisterPopup").prop("disabled", false);
-		checkUser($("#farmer").val());
+		if ($("#farmer").val().match(phoneNumberPattern)) {
+			$("#confirmPhoneNumberMessage").hide();
+			$("#otpRegisterPopup").prop("disabled", false);
+			checkUser($("#farmer").val());
+		} else {
+			$("#confirmPhoneNumberMessage").show();
+			$("#otpRegisterPopup").prop("disabled", true);
+		}
 	} else {
 		$("#confirmPhoneNumberMessage").show();
 		$("#otpRegisterPopup").prop("disabled", true);
+	}
+	if ($("#buyer").val().length == 0 && $("#farmer").val().length == 0) {
+		$("#confirmPhoneNumberMessage").hide();
+		$("#password").prop("disabled", false);
+		$("#confirmPassword").prop("disabled", false);
+		$("#otpRegisterPopup").prop("disabled", false);
 	}
 
 });
@@ -98,7 +104,7 @@ $("#buyer").keyup(function() {
 		$("#farmer").prop("disabled", false);
 		buyer = true;
 		farmer = false;
-		$("#userType").val("buyer");
+		$("#userType").val("BUYER");
 	} else {
 		$("#farmer").prop("disabled", true);
 	}
@@ -110,6 +116,12 @@ $("#buyer").keyup(function() {
 	} else {
 		$("#confirmPhoneNumberMessage").show();
 		$("#otpRegisterPopup").prop("disabled", true);
+	}
+	if ($("#buyer").val().length == 0 && $("#farmer").val().length == 0) {
+		$("#confirmPhoneNumberMessage").hide();
+		$("#password").prop("disabled", false);
+		$("#confirmPassword").prop("disabled", false);
+		$("#otpRegisterPopup").prop("disabled", false);
 	}
 
 });
@@ -149,7 +161,7 @@ function sendOTP(phoneNumber) {
 }
 
 function checkOTP(otpValue, sessionID) {
-	  $.ajax({
+	$.ajax({
 		type : "POST",
 		url : contextPath + "/checkOtp",
 		data : "otpValue=" + otpValue + "&sessionID=" + sessionID,
@@ -175,49 +187,52 @@ function checkOTP(otpValue, sessionID) {
 			console.log('Error: ' + JSON.stringify(e));
 		}
 	});
-	 
 
 }
 
+function checkUser(phoneNumber) {
+	$
+			.ajax({
+				type : "POST",
+				url : contextPath + "/checkUser",
+				data : phoneNumber,
+				contentType : "application/json",
+				success : function(response) {
+					if (JSON.stringify(response).length != 2) {
+						var jsonResponse = JSON.parse(JSON.stringify(response));
+						if (jsonResponse.otpVerified) {
+							$("#confirmPhoneNumberMessage")
+									.show()
+									.addClass("text-danger")
+									.text(
+											"User Already Exists, Please click on forgot password!");
+							$("#otpRegisterPopup").prop("disabled", true);
+							$("#password").prop("disabled", true);
+							$("#confirmPassword").prop("disabled", true);
+						} else {
+							$("#confirmPhoneNumberMessage")
+									.show()
+									.addClass("text-danger")
+									.text(
+											"User Already Exists, But OTP not Verified!");
+							$("#otpRegisterPopup").prop("disabled", true);
+							$("#password").prop("disabled", false);
+							$("#confirmPassword").prop("disabled", false);
+						}
+					} else {
+						$("#confirmPhoneNumberMessage").hide();
+						$("#password").prop("disabled", false);
+						$("#confirmPassword").prop("disabled", false);
+						$("#otpRegisterPopup").prop("disabled", false);
+					}
 
-function checkUser(phoneNumber){
-	$.ajax({
-		type : "POST",
-		url : contextPath + "/checkUser",
-		data : phoneNumber,
-		contentType: "application/json",
-		success : function(response) {
-			if(JSON.stringify(response).length != 2){
-				var jsonResponse = JSON.parse(JSON.stringify(response));
-				if(jsonResponse.otpVerified){
-					$("#confirmPhoneNumberMessage").show().addClass("text-danger").text("User Already Exists, Please click on forgot password!");
+				},
+				error : function(e) {
+					$("#confirmPhoneNumberMessage")
+							.show()
+							.text(
+									"User Already Exists, Please click on forgot password!");
 					$("#otpRegisterPopup").prop("disabled", true);
-					$("#password").prop("disabled", true);
-					$("#confirmPassword").prop("disabled", true);
-				}else{
-					$("#confirmPhoneNumberMessage").show().addClass("text-danger").text("User Already Exists, But OTP not Verified!");
-					$("#otpRegisterPopup").prop("disabled", true);
-					$("#password").prop("disabled", false);
-					$("#confirmPassword").prop("disabled", false);
 				}
-			}else{
-				$("#confirmPhoneNumberMessage").hide();
-				$("#password").prop("disabled", false);
-				$("#confirmPassword").prop("disabled", false);
-				$("#otpRegisterPopup").prop("disabled", false);
-			}
-				
-		},
-		error : function(e) {
-			$("#confirmPhoneNumberMessage").show().text("User Already Exists, Please click on forgot password!");
-			$("#otpRegisterPopup").prop("disabled", true);
-		}
-	});
+			});
 }
-
-
-
-
-
-
-

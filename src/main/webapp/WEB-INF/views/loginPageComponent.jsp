@@ -66,29 +66,29 @@
 									<div class="line r"></div> -->
 								</div>
 								<form:form modelAttribute="user" id="userRegister" action="register" class="register-form">
-									<form:input path="phoneNumber" type="text" id="farmer" class="form-control" placeholder="Farmer PhoneNumber"/>
+									<form:input path="user.phoneNumber" type="text" id="farmer" class="form-control" placeholder="Farmer PhoneNumber"/>
 									<div class="division">
 									<div class="line l"></div>
 									<span>or</span>
 									<div class="line r"></div>
 								</div>
-									<form:input path="phoneNumber" type="text" id="buyer" class="form-control" placeholder="Buyer PhoneNumber"/>
+									<form:input path="user.phoneNumber" type="text" id="buyer" class="form-control" placeholder="Buyer PhoneNumber"/>
 									<div class="division"></div>
-									<form:input path="password" id="password" type="password" class="form-control" placeholder="Password"/>
+									<form:input path="user.password" id="password" type="password" class="form-control" placeholder="Password"/>
 
-									<form:input path="confirmPassword" id="confirmPassword" type="password" class="form-control" placeholder="Confirm Password"/>
+									<form:input path="user.confirmPassword" id="confirmPassword" type="password" class="form-control" placeholder="Confirm Password"/>
                                     <div id="confirmPasswordMessage" class="typography-line" style="padding-left:0px;display: none">
                                         <p class="text-danger"><spring:message code="com.grow.agriculture.password.not.equals"/></p>
                                     </div>
                                     <div id="confirmPhoneNumberMessage" class="typography-line" style="padding-left:0px;display: none">
                                         <p class="text-danger"><spring:message code="com.grow.agriculture.phonenumber.not.present"/></p>
                                     </div>
-                                   <form:input path="otp.value" id="otp" type="hidden"/>
-                                   <form:input path="otp.sessionId" id="sessionID" type="hidden"/>
-                                   <form:input path="otp.status" id="status" type="hidden"/>
-                                   <form:input path="otp.tries" id="tries" type="hidden"/>
-                                   <form:input path="otpVerified" id="verified" type="hidden"/>
-                                   <form:input path="userType" id="userType" type="hidden"/>
+                                   <form:input path="otpValue" id="otp" type="hidden"/>
+                                   <form:input path="sessionId" id="sessionID" type="hidden"/>
+                                   <form:input path="status" id="status" type="hidden"/>
+                                   <form:input path="tries" id="tries" type="hidden"/>
+                                   <form:input path="user.otpVerified" id="verified" type="hidden"/>
+                                   <form:input path="user.userType" id="userType" type="hidden"/>
                                    
                                     <div class="row" id="modals">
                                     <div class="col-md-12">

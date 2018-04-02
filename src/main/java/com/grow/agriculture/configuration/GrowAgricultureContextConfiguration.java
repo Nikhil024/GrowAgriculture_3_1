@@ -94,7 +94,7 @@ public class GrowAgricultureContextConfiguration implements WebMvcConfigurer {
         HibernateJpaVendorAdapter hibernateJpa = new HibernateJpaVendorAdapter();
         hibernateJpa.setDatabasePlatform("org.hibernate.dialect.Oracle10gDialect");
         hibernateJpa.setShowSql(true);
-      /*  hibernateJpa.setGenerateDdl(true);*/
+        hibernateJpa.setGenerateDdl(true);
         hibernateJpa.setDatabase(Database.ORACLE);
         LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
         emf.setDataSource(dataSource());

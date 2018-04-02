@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.grow.agriculture.model.OTPMessage;
 import com.grow.agriculture.model.User;
 import com.grow.agriculture.repository.OTPRepository;
 import com.grow.agriculture.repository.UserRepository;

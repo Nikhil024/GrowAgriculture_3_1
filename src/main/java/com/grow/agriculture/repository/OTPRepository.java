@@ -1,11 +1,9 @@
 package com.grow.agriculture.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.repository.CrudRepository;
 
-import com.grow.agriculture.model.OTPMessage;
+import com.grow.agriculture.model.OTP;
 
-@Repository
-public interface OTPRepository extends JpaRepository<OTPMessage, Integer> {
-	
+public interface OTPRepository extends CrudRepository<OTP, Long> {
+
 }

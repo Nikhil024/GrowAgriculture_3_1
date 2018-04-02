@@ -52,7 +52,7 @@
 							</div>
 						</div>
 						<div class="col-md-4 col-sm-5 col-12 mr-auto">
-							<div class="card card-register flipOutY">
+							<div class="card card-register">
 								<h3 class="card-title text-center"><spring:message code="com.grow.agriculture.register"/></h3>
 								<!-- <div class="social">
 									<button href="#paper-kit" class="btn btn-just-icon btn-facebook"><i class="fa fa-facebook"></i></button>
@@ -65,26 +65,69 @@
 									<span>or</span>
 									<div class="line r"></div> -->
 								</div>
-								<form:form modelAttribute="user" action="register" class="register-form">
-									<input path="farmerNumber" type="text" id="farmer" class="form-control" placeholder="Farmer PhoneNumber">
+								<form:form modelAttribute="user" id="userRegister" action="register" class="register-form">
+									<form:input path="phoneNumber" type="text" id="farmer" class="form-control" placeholder="Farmer PhoneNumber"/>
 									<div class="division">
 									<div class="line l"></div>
 									<span>or</span>
 									<div class="line r"></div>
 								</div>
-									<input type="text" id="buyer" class="form-control" placeholder="Buyer PhoneNumber">
+									<form:input path="phoneNumber" type="text" id="buyer" class="form-control" placeholder="Buyer PhoneNumber"/>
 									<div class="division"></div>
-									<input id="password" type="password" class="form-control" placeholder="Password">
+									<form:input path="password" id="password" type="password" class="form-control" placeholder="Password"/>
 
-									<input id="confirmPassword" type="password" class="form-control" placeholder="Confirm Password">
+									<form:input path="confirmPassword" id="confirmPassword" type="password" class="form-control" placeholder="Confirm Password"/>
                                     <div id="confirmPasswordMessage" class="typography-line" style="padding-left:0px;display: none">
                                         <p class="text-danger"><spring:message code="com.grow.agriculture.password.not.equals"/></p>
                                     </div>
-									<button id="register" class="btn btn-block btn-round"><spring:message code="com.grow.agriculture.register"/></button>
+                                    <div id="confirmPhoneNumberMessage" class="typography-line" style="padding-left:0px;display: none">
+                                        <p class="text-danger"><spring:message code="com.grow.agriculture.phonenumber.not.present"/></p>
+                                    </div>
+                                   <form:input path="otp.value" id="otp" type="hidden"/>
+                                   <form:input path="otp.sessionId" id="sessionID" type="hidden"/>
+                                   <form:input path="otp.status" id="status" type="hidden"/>
+                                   <form:input path="otp.tries" id="tries" type="hidden"/>
+                                   <form:input path="otpVerified" id="verified" type="hidden"/>
+                                   <form:input path="userType" id="userType" type="hidden"/>
+                                   
+                                    <div class="row" id="modals">
+                                    <div class="col-md-12">
+                                    <button id="otpRegisterPopup" type="button" style="margin-left:80px;background-color: #66615B;border: 0px;" class=" btn btn-primary btn-round" data-toggle="modal" data-target="#otpModal">Register</button>
+                            
+                            <div class="modal fade" id="otpModal" tabindex="-1" role="dialog" aria-hidden="false">
+                                <div class="modal-dialog modal-register" style="width: 325px;">
+                                    <div class="modal-content">
+                                        <div class="modal-header no-border-header text-center">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                              <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            <h6 class="text-muted">OTP</h6>
+                                            <h3 class="modal-title text-center">Enter OTP</h3>
+                                            <p>Please enter OTP received on your phone.</p>
+                                        </div>
+                                         <p id="otpSuccessSent" class="text-success" style="text-align: -webkit-center;display:none;"><spring:message code="com.grow.agriculture.otp.sent.success.message"/></p>
+                                         <p id="otpWarningSent" class="text-warning" style="text-align: -webkit-center;display:none;padding-left: 3px;"><spring:message code="com.grow.agriculture.otp.sent.fail.message"/></p>
+                                         <p id="otpDangerSent" class="text-danger" style="text-align: -webkit-center;display:none;padding-left: 3px;"><spring:message code="com.grow.agriculture.otp.wrong.fail.message"/></p>
+                                         <p id="otpError" class="text-danger" style="text-align: -webkit-center;padding-left: 3px;">${otpError}</p>
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <label>Enter the OTP</label>
+                                	        	<input id="otpPopup" type="password" value="" placeholder="OTP" class="form-control" />
+                                        	</div>
+                                        	<br/>
+                                            <input id="register" type="submit" style="margin-left: 68px;" value="submit" class="btn btn-outline-default btn-round" name="Register"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                    
+									</div>
+									</div>
 								</form:form>
 								<div class="login">
 									<p>Already have an account? <a href="<spring:url value="/"/><spring:message code="com.grow.agriculture.login"/>"><spring:message code="com.grow.agriculture.login"/></a>.</p>
 								</div>
+								
 							</div>
 						</div>
 					</div>
@@ -98,40 +141,4 @@
 </body>
 
 <jsp:include page="javascriptComponent.jsp"/>
-<script type="text/javascript">
-
-$( "#register" ).click(function() {
-	alert("hi");
-});
-
-
-$( "#farmer" ).keyup(function() {
-	if(!($( "#farmer" ).val().length > 1)){
-		$( "#buyer" ).prop("disabled", false);
-	}else{
-		$( "#buyer" ).prop("disabled", true);
-	}
-});
-	
-$( "#buyer" ).keyup(function() {
-	if(!($( "#buyer" ).val().length > 1)){
-		$( "#farmer" ).prop("disabled", false);
-	}else{
-		$( "#farmer" ).prop("disabled", true);
-	}
-});
-
-
-$( "#confirmPassword" ).keyup(function() {
-    if($( "#password" ).val() == $( "#confirmPassword" ).val()){
-        $("#confirmPasswordMessage").hide();
-        $("#register").prop("disabled", false);
-    }else{
-        $("#confirmPasswordMessage").show();
-        $("#register").prop("disabled", true);
-    }
-});
-
-
-</script>
 </html>

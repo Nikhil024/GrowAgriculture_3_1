@@ -83,7 +83,7 @@ public class GrowAgricultureContextConfiguration implements WebMvcConfigurer {
 	private BasicDataSource dataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName("oracle.jdbc.driver.OracleDriver");
-		dataSource.setUrl("jdbc:oracle:thin:@localhost:1521:xe");
+		dataSource.setUrl("jdbc:oracle:thin:@localhost:1521:orcl");
 		dataSource.setUsername("nikhil");
 		dataSource.setPassword("admin");
 		return dataSource;
@@ -107,7 +107,7 @@ public class GrowAgricultureContextConfiguration implements WebMvcConfigurer {
 	
 	private final Properties jpaProperties() {
 		Properties hibernateProperties = new Properties();
-	/*	hibernateProperties.setProperty("hibernate.hbm2ddl.auto", "create");*/
+		/*hibernateProperties.setProperty("hibernate.hbm2ddl.auto", "create");*/
 		hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.Oracle10gDialect");
 		hibernateProperties.put("hibernate.show_sql", "true");
 		hibernateProperties.put("hibernate.format_sql", "true");

@@ -1,5 +1,9 @@
 package com.grow.agriculture.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import javax.transaction.Transactional;
 
 import org.slf4j.Logger;
@@ -12,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.grow.agriculture.model.OTP;
 import com.grow.agriculture.model.User;
 import com.grow.agriculture.repository.UserRepository;
 
@@ -41,7 +46,19 @@ public class RegisterPageComponentController {
 	public ModelAndView registerUser(@ModelAttribute(MODEL_NAME) User user, BindingResult result) {
 		ModelAndView mav = new ModelAndView();
 		System.out.println(user.toString());
-		user.addOTP(user.getOtp(), user);
+		
+		Optional<User> users = userRepository.findByPhoneNumber(user.getPhoneNumber());
+		
+		List<OTP> otp = new ArrayList<>();
+		otp.add(user.getOtp());
+		
+		if(users.isPresent()) {
+			user = users.get();
+		}
+		
+		
+		user.setOtpList(otp);
+		
 		userRepository.save(user);
 		
 		mav.setViewName(VIEW_NAME);

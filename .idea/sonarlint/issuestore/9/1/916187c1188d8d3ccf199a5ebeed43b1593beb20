@@ -1,0 +1,6 @@
+
+Ysquid:UselessImportCheck"8Remove this unused import 'javax.persistence.OneToMany'.(«õù;
+ysquid:S3437"_Make this value-based field transient so it is not included in the serialization of this class.(øÏáìûÿÿÿÿ
+\squid:UselessImportCheck":Remove this unused import 'javax.persistence.CascadeType'.( ì¤Ê
+tsquid:S3437"_Make this value-based field transient so it is not included in the serialization of this class.(ìÁ’
+_squid:UselessImportCheck"6Remove this unused import 'lombok.extern.slf4j.Slf4j'.(ûúÄ®8ôÀë¨ª,

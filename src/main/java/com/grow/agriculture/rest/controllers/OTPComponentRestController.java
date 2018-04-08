@@ -3,6 +3,7 @@ package com.grow.agriculture.rest.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,10 +25,9 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 @Controller
+@Slf4j
 @PropertySource(value = "classpath:application.properties")
 public class OTPComponentRestController {
-
-	private static final Logger log = LoggerFactory.getLogger(OTPComponentRestController.class);
 
 	@Value("${com.grow.agriculture.otp.url}")
 	private String otpURL;

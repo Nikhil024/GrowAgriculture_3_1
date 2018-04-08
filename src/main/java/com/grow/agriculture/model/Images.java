@@ -23,7 +23,9 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 
 import com.grow.agriculture.enumuration.ImageType;
+import lombok.*;
 
+@Data
 @Entity
 public class Images implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -44,60 +46,15 @@ public class Images implements Serializable{
 	private LocalDateTime createdOn;
 	@Column(name = "lastupdate_date")
 	private LocalDateTime lastUpdatedOn;
-	
-	public Long getId() {
-		return id;
-	}
-	public Images setId(Long id) {
-		this.id = id;
-		return this;
-	}
-	public String getName() {
-		return name;
-	}
-	public Images setName(String name) {
-		this.name = name;
-		return this;
-	}
-	public Byte[] getImage() {
-		return image;
-	}
-	public Images setImage(Byte[] image) {
-		this.image = image;
-		return this;
-	}
-	public ImageType getImageType() {
-		return imageType;
-	}
-	public Images setImageType(ImageType imageType) {
-		this.imageType = imageType;
-		return this;
-	}
-	public User getUser() {
-		return user;
-	}
-	public Images setUser(User user) {
-		this.user = user;
-		return this;
-	}
-	public LocalDateTime getCreatedOn() {
-		return createdOn;
-	}
+
 	@PrePersist
 	public void setCreatedOn() {
 		this.createdOn = LocalDateTime.now(ZoneId.of("Asia/Calcutta"));
 	}
-	public LocalDateTime getLastUpdatedOn() {
-		return lastUpdatedOn;
-	}
+
 	@PreUpdate
 	public void setLastUpdatedOn() {
 		this.lastUpdatedOn = LocalDateTime.now(ZoneId.of("Asia/Calcutta"));
 	}
-	
-	@Override
-	public String toString() {
-		return "Images [id=" + id + ", name=" + name + ", image=" + Arrays.toString(image) + ", imageType=" + imageType
-				+ ", userId=" + user + ", createdOn=" + createdOn + ", lastUpdatedOn=" + lastUpdatedOn + "]";
-	}
+
 }

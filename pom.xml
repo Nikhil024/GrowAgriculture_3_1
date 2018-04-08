@@ -195,7 +195,14 @@
 			<version>1.4.9</version>
 		</dependency>
 		<!-- End: Rest Dependencies -->
-
+		<!-- Start:Lombak -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.16.20</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- End:Lombak -->
 
 		<!--End: GrowAgriculture Dependencies -->
 
